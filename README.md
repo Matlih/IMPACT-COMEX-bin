@@ -15,33 +15,45 @@ The model was fine-tuned specifically for the detection of Polyethylene Terephth
 * **Dataset Source:** *Plastic Recyclable Detection* via [Roboflow Universe](https://universe.roboflow.com/snowman1908/plastic-recyclable-detection).
 * **Target Class:** `PET-Bottles`
 
+### Sensor Fusion & State Management
+This pipeline does not rely solely on visual triggers. It employs sensor fusion by integrating an HC-SR04 Ultrasonic Sensor for physical state management. The system utilizes conditional actuation logic: the GPIO servo motors will only deploy if the YOLOv11 model detects a high-confidence `PET-Bottle` **AND** the ultrasonic sensor verifies the bin is below maximum capacity. This verifies the bin is below maximum capacity. If the bin is at maximum capacity, mechanical actuation is halted, and the system instead triggers a localized hardware alert (Active Buzzer and Red LED) to notify the user.
+
 ## ⚙️ Quick Start & Reproducibility
 
 ### Environment Setup
 To ensure cross-platform stability, dependencies are modularized based on the deployment hardware.
+#### **Clone the repository.**
 ```bash
 git clone https://github.com/matlih/IMPACT-COMEX-bin.git
 cd IMPACT-COMEX-bin
+```
 
-# Edge Deployment (Raspberry Pi)
-# Installs core computer vision frameworks alongside GPIO and edge-actuation libraries.
+#### Edge Deployment (Raspberry Pi)
+* Installs core computer vision frameworks alongside GPIO and edge-actuation libraries.
+```bash
 pip install -r requirements/raspberrypi.txt
+```
 
-# Local Prototyping (Windows PC)
-# Installs core computer vision frameworks optimized for local webcam testing.
+#### Local Prototyping (Windows PC)
+* Installs core computer vision frameworks optimized for local webcam testing.
+```bash
 pip install -r requirements/windows.txt
 ```
 
 ### Deployment (Execution)
-This system utilizes an automated batch orchestrator for seamless deployment. To execute the pipeline, simply run the included batch file.
+* This system utilizes an automated batch orchestrator for seamless deployment. To execute the pipeline, simply run the included batch file.
 ```bash
 run.bat
 ```
 
 ### Hardware
 The following are the essential hardware components:
-* item one
-* item two
+* **Compute Module:** Raspberry Pi 4 (8gb)
+* **Vision Sensor:** Standard 1080p USB Webcam
+* **Actuation:** Servo MG90S for the bin lid
+* **Capacity State Sensor:** HC-SR04 Ultrasonic Sensor. Engineered as a hardware failsafe to halt servo actuation when the bin reaches maximum physical capacity, regardless of YOLO inference triggers.
+* **Active Buzzer:** Produces a buzz sound when the camera detects `PET-Bottle`, but the HC-SR04 Ultrasonic Sensor detects that the bin is full.
+* **Red LED**: Lights up when the camera detects `PET-Bottle`, but the HC-SR04 Ultrasonic Sensor detects that the bin is full.
 
 ## 📊 MLOps & Training Metrics
 *The core vision model was trained in a cloud-compute environment (Google Colab, NVIDIA T4) before NCNN compilation. The metrics below reflect the performance of the YOLOv11n architecture at Epoch 30, optimized at a 320x320 image size for maximum edge-inference speed.*
