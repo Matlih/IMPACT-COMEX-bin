@@ -16,7 +16,7 @@ The model was fine-tuned specifically for the detection of Polyethylene Terephth
 * **Target Class:** `PET-Bottles`
 
 ### Sensor Fusion & State Management
-This pipeline does not rely solely on visual triggers. It employs sensor fusion by integrating an HC-SR04 Ultrasonic Sensor for physical state management. The system utilizes conditional actuation logic: the GPIO servo motors will only deploy if the YOLOv11 model detects a high-confidence `PET-Bottle` **AND** the ultrasonic sensor verifies the bin is below maximum capacity. This verifies the bin is below maximum capacity. If the bin is at maximum capacity, mechanical actuation is halted, and the system instead triggers a localized hardware alert (Active Buzzer and Red LED) to notify the user.
+This pipeline does not rely solely on visual triggers. It employs sensor fusion by integrating an HC-SR04 Ultrasonic Sensor for physical state management. The system utilizes conditional actuation logic: the GPIO servo motors will only deploy if the YOLOv11n model detects a high-confidence `PET-Bottle` **AND** the ultrasonic sensor verifies the bin is below maximum capacity. This verifies the bin is below maximum capacity. If the bin is at maximum capacity, mechanical actuation is halted, and the system instead triggers a localized hardware alert (Active Buzzer and Red LED) to notify the user.
 
 ## ⚙️ Quick Start & Reproducibility
 
