@@ -3,9 +3,16 @@ ultralytics>=8.3.0
 torch>=2.0.0
 torchvision>=0.15.0
 
+# Edge Computing & High-Performance Inference
+ncnn>=1.0.20231027
+
 # Real-Time Video Processing & Array Math
 opencv-python>=4.8.0
 numpy>=1.23.5
+
+# Hardware Actuation & Sensor Logic (Raspberry Pi)
+gpiozero>=2.0
+RPi.GPIO>=0.7.1
 
 # Performance & Logging Utils
 psutil>=5.9.0
