@@ -62,7 +62,7 @@ bins:
   - name: recyclable_bin
     # Labels that should open this specific bin.
     labels:
-      - bottle
+      - PET Bottle
 
      # True if this bin has a servo motor attached.
     hasServo: true
