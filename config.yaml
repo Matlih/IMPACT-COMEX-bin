@@ -1,0 +1,93 @@
+# ------------------------------
+# Model Settings
+# ------------------------------
+
+# Which AI model file/folder to load for object detection.
+model: models/COMEX_bin_ncnn_model
+ # What type of vision task the model should run.
+modelTask: detect
+# Minimum confidence score for keeping a detected object.
+minConfidence: 0.35
+# Run AI every N frames (2 means every other frame).
+inferEveryNFrames: 2
+# Image size used by the AI model during prediction.
+inferenceImageSize: 640
+
+# ------------------------------
+# Camera And Display Settings
+# ------------------------------
+
+# Which camera to use. 0 is usually the default webcam/camera.
+cameraIndex: 0
+# Camera image width in pixels.
+cameraWidth: 640
+# Camera image height in pixels.
+cameraHeight: 480
+ # How many camera frames to try to capture each second.
+cameraFps: 30
+# How many frames OpenCV can queue. Lower means less delay.
+cameraBufferSize: 1
+# Name shown at the top of the OpenCV preview window.
+windowName: I.M.P.A.C.T. - COMEX
+# If true, run without opening the OpenCV preview window.
+headless: false
+
+# ------------------------------
+# Hardware Timing Settings
+# ------------------------------
+
+# How often to check the ultrasonic sensor (seconds).
+sensorPollInterval: 0.12
+ # Small pause after moving the servo so motion can finish.
+servoMoveDelay: 0.35
+# How long to wait before closing the lid after target disappears.
+servoCloseDelay: 3.0
+
+# ------------------------------
+# Servo Position Settings
+# ------------------------------
+
+# Servo angle used when opening a bin lid.
+openAngle: 90
+# Servo angle used when closing a bin lid.
+closedAngle: 0
+
+# ------------------------------
+# Bin Definitions
+# ------------------------------
+
+# List of all bins and their hardware/settings.
+bins:
+  # Unique name used to track this bin's state in code.
+  - name: recyclable_bin
+    # Labels that should open this specific bin.
+    labels:
+      - bottle
+
+     # True if this bin has a servo motor attached.
+    hasServo: true
+    # GPIO pin number connected to this bin's servo.
+    servoPin: 17
+
+    # True if this bin has an ultrasonic sensor attached.
+    hasSensor: true
+    # Ultrasonic sensor settings for this bin.
+    sensor:
+       # GPIO pin that sends ultrasonic trigger pulses.
+      triggerPin: 23
+       # GPIO pin that receives ultrasonic echo pulses.
+      echoPin: 24
+      # Distance the bin is considered blocked/full (centimeter).
+      blockedDistanceCm: 10.0
+      # How long the blockage must last before marking the bin as full (seconds).
+      blockSeconds: 3.0
+
+    # True if this bin has an LED attached.
+    hasLed: true
+     # GPIO pin number connected to the LED.
+    ledPin: 25
+
+    # True if this bin has an active buzzer attached.
+    hasBuzzer: true
+    # GPIO pin number connected to the buzzer.
+    buzzerPin: 27

@@ -1,0 +1,25 @@
+description: Ultralytics YOLO11n model trained on /content/Plastic-recyclable-detection-3/data.yaml
+author: Ultralytics
+date: '2026-04-26T16:54:22.111183'
+version: 8.4.26
+license: AGPL-3.0 License (https://ultralytics.com/license)
+docs: https://docs.ultralytics.com
+stride: 32
+task: detect
+batch: 1
+imgsz:
+- 640
+- 640
+names:
+  0: HDPE Plastic
+  1: Multi-layer Plastic
+  2: PET Bottle
+  3: Single-Use-Plastic
+  4: Single-layer Plastic
+  5: Squeeze-Tube
+  6: UHT-Box
+args:
+  batch: 1
+  half: false
+channels: 3
+end2end: false
