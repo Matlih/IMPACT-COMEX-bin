@@ -1,7 +1,11 @@
 import cv2
+from pathlib import Path
 from ultralytics import YOLO
 
-model = YOLO("../models/COMEX_bin_ncnn_model", task="detect")
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+MODEL_PATH = PROJECT_ROOT / "models" / "COMEX_bin_ncnn_model"
+
+model = YOLO(str(MODEL_PATH), task="detect")
 cap = cv2.VideoCapture(0)
 
 while True:
