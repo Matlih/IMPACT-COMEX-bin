@@ -1,2 +1,57 @@
-# IMPACT-COMEX-bin
-Lightweight YOLOv11n edge-inference pipeline engineered for real-time PET bottle classification in localized smart bins.
+# ♻️ Project IMPACT-COMEX: Edge Vision System
+
+> **A lightweight YOLOv11n computer vision pipeline engineered for real-time PET bottle classification on localized edge hardware.**
+
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![Framework](https://img.shields.io/badge/framework-YOLOv11n-green.svg)]()
+[![Hardware](https://img.shields.io/badge/Deployment-Edge%20IoT-orange.svg)]()
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+## 🏛️ System Architecture
+This repository contains the localized vision pipeline for the IMPACT-COMEX Smart Bin. To ensure real-time physical actuation and minimal power draw, the system utilizes the `YOLOv11n` (Nano) architecture. This allows for high-throughput inference directly on constrained edge devices (Raspberry Pi 4) without requiring continuous cloud compute.
+
+### Data Engineering & Provenance
+The model was fine-tuned specifically for the detection of Polyethylene Terephthalate (PET) plastics to facilitate automated recycling sorting.
+* **Dataset Source:** *Plastic Recyclable Detection* via [Roboflow Universe](https://universe.roboflow.com/snowman1908/plastic-recyclable-detection).
+* **Target Class:** `PET-Bottles`
+
+## ⚙️ Quick Start & Reproducibility
+
+### Environment Setup
+To ensure cross-platform stability, dependencies are modularized based on the deployment hardware.
+```bash
+git clone https://github.com/matlih/IMPACT-COMEX-bin.git
+cd IMPACT-COMEX-bin
+
+# Edge Deployment (Raspberry Pi)
+# Installs core computer vision frameworks alongside GPIO and edge-actuation libraries.
+pip install -r requirements/raspberrypi.txt
+
+# Local Prototyping (Windows PC)
+# Installs core computer vision frameworks optimized for local webcam testing.
+pip install -r requirements/windows.txt
+```
+
+### Deployment (Execution)
+This system utilizes an automated batch orchestrator for seamless deployment. To execute the pipeline, simply run the included batch file.
+```bash
+run.bat
+```
+
+### Hardware
+The following are the essential hardware components:
+* item one
+* item two
+
+## 📊 MLOps & Training Metrics
+*The core vision model was trained in a cloud-compute environment (Google Colab, NVIDIA T4) before NCNN compilation. The metrics below reflect the performance of the YOLOv11n architecture at Epoch 30, optimized at a 320x320 image size for maximum edge-inference speed.*
+
+* **Mean Average Precision (mAP@50):** 97.6%
+* **Precision:** 94.9%
+* **Recall:** 93.4%
+
+> **Note:** A precision of 94.9% ensures high-fidelity motor actuation, drastically minimizing false-positive sorting errors in the physical bin mechanism.
+
+## 🛡️ Project Engineering Team
+* Montazar L. Matlih — Machine Learning Engineer
+* John Christian R. Senoto — Embedded Systems Engineer
