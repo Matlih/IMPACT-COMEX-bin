@@ -1,7 +1,7 @@
 import cv2
 from ultralytics import YOLO
 
-model = YOLO("../models/best_ncnn_model", task="detect")
+model = YOLO("../models/COMEX_bin_ncnn_model", task="detect")
 cap = cv2.VideoCapture(0)
 
 while True:
