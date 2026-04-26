@@ -1,0 +1,12 @@
+# Core Vision & AI Frameworks
+ultralytics>=8.3.0
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Real-Time Video Processing & Array Math
+opencv-python>=4.8.0
+numpy>=1.23.5
+
+# Performance & Logging Utils
+psutil>=5.9.0
+pyyaml>=6.0
