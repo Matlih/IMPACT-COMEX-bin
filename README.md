@@ -22,31 +22,31 @@ This pipeline does not rely solely on visual triggers. It employs sensor fusion 
 
 ### Environment Setup
 To ensure cross-platform stability, dependencies are modularized based on the deployment hardware.
-#### **Clone the repository.**
+#### **Clone the repository:**
 ```bash
 git clone https://github.com/matlih/IMPACT-COMEX-bin.git
 cd IMPACT-COMEX-bin
 ```
 
-#### Edge Deployment (Raspberry Pi)
+#### Edge Deployment (Raspberry Pi):
 * Installs core computer vision frameworks alongside GPIO and edge-actuation libraries.
 ```bash
 pip install -r requirements/raspberrypi.txt
 ```
 
-#### Local Prototyping (Windows PC)
+#### Local Prototyping (Windows PC):
 * Installs core computer vision frameworks optimized for local webcam testing.
 ```bash
 pip install -r requirements/windows.txt
 ```
 
-### Deployment (Execution)
+### Deployment (Execution):
 * This system utilizes an automated batch orchestrator for seamless deployment. To execute the pipeline, simply run the included batch file.
 ```bash
 run.bat
 ```
 
-### Hardware
+### **Hardware**
 The following are the essential hardware components:
 * **Compute Module:** Raspberry Pi 4 (8gb)
 * **Vision Sensor:** Standard 1080p USB Webcam
