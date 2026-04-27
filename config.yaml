@@ -48,9 +48,9 @@ servoCloseDelay: 3.0
 # ------------------------------
 
 # Servo angle used when opening a bin lid.
-openAngle: 90
+openAngle: 0
 # Servo angle used when closing a bin lid.
-closedAngle: 0
+closedAngle: 90
 
 # ------------------------------
 # Bin Definitions
