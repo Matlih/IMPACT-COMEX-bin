@@ -1,5 +1,5 @@
 [Unit]
-Description=Rezbin OpenCV Sorting App
+Description=Project IMPACT-COMEX: Edge Vision System
 After=network.target pigpiod.service
 Wants=pigpiod.service
 
@@ -7,9 +7,9 @@ Wants=pigpiod.service
 Type=simple
 User=pi
 Group=pi
-WorkingDirectory=%h/Project-IMPACT
+WorkingDirectory=%h/IMPACT-COMEX-bin
 Environment=PYTHONUNBUFFERED=1
-ExecStart=%h/Project-IMPACT/.venv/bin/python %h/Project-IMPACT/main.py --headless
+ExecStart=%h/IMPACT-COMEX-bin/.venv/bin/python %h/IMPACT-COMEX-bin/main.py --headless
 Restart=always
 RestartSec=3
 
