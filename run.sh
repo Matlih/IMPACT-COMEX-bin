@@ -23,7 +23,7 @@ pause_any() {
 ensure_venv() {
   if [ ! -x "$PYTHON_BIN" ]; then
     echo "Creating virtual environment in $VENV_DIR ..."
-    python -m venv "$VENV_DIR" || {
+    python3 -m venv --system-site-packages "$VENV_DIR" || {
       echo "Failed to create virtual environment."
       return 1
     }
@@ -31,11 +31,85 @@ ensure_venv() {
   return 0
 }
 
+install_pigpio_from_source() {
+  if command -v pigpiod >/dev/null 2>&1; then
+    echo "pigpiod already installed. Skipping source build."
+    return 0
+  fi
+
+  local pigpio_src_dir="/tmp/pigpio-src"
+  echo "Downloading and building pigpio from source ..."
+  rm -rf "$pigpio_src_dir"
+  git clone --depth 1 https://github.com/joan2937/pigpio.git "$pigpio_src_dir" || return 1
+
+  (
+    cd "$pigpio_src_dir" || exit 1
+    make || exit 1
+    sudo make install || exit 1
+  ) || return 1
+
+  command -v pigpiod >/dev/null 2>&1
+}
+
 install_requirements() {
+  echo "Installing OpenCV and related system packages (apt) ..."
+  sudo apt-get update || return 1
+  sudo apt-get install -y \
+    python3-numpy \
+    python3-opencv \
+    python3-torch \
+    python3-torchvision \
+    git \
+    build-essential \
+    cmake \
+    libgtk-3-dev \
+    libboost-all-dev  || return 1
+
+  install_pigpio_from_source || {
+    echo "pigpio source install failed."
+    return 1
+  }
+
+  if [ -d "$VENV_DIR" ] && [ ! -x "$PYTHON_BIN" ]; then
+    echo "Existing virtual environment is invalid. Recreating $VENV_DIR ..."
+    rm -rf "$VENV_DIR"
+  fi
+
+  if [ -x "$PYTHON_BIN" ]; then
+    "$PYTHON_BIN" -c "import cv2" >/dev/null 2>&1 || {
+      echo "Existing virtual environment cannot import cv2. Recreating with system-site-packages ..."
+      rm -rf "$VENV_DIR"
+    }
+  fi
+
   ensure_venv || return 1
   echo "Installing dependencies from $REQ_FILE ..."
   "$PYTHON_BIN" -m pip install --upgrade pip
   "$PYTHON_BIN" -m pip install -r "$REQ_FILE"
+
+  echo "Ensuring ultralytics stays compatible with system OpenCV ..."
+  "$PYTHON_BIN" -m pip install --no-cache-dir --no-deps ultralytics
+}
+
+ensure_pigpiod_running() {
+  if pgrep pigpiod >/dev/null 2>&1; then
+    return 0
+  fi
+
+  echo "Enabling and starting pigpiod ..."
+  if command -v systemctl >/dev/null 2>&1; then
+    sudo systemctl enable pigpiod >/dev/null 2>&1 || true
+    sudo systemctl start pigpiod >/dev/null 2>&1 || sudo pigpiod >/dev/null 2>&1
+  else
+    sudo pigpiod >/dev/null 2>&1
+  fi
+
+  if pgrep pigpiod >/dev/null 2>&1; then
+    return 0
+  fi
+
+  echo "Failed to start pigpiod. Please run: sudo pigpiod"
+  return 1
 }
 
 run_main() {
@@ -43,6 +117,7 @@ run_main() {
     echo "Virtual environment not found. Run option 1 first."
     return 1
   fi
+  ensure_pigpiod_running || return 1
   "$PYTHON_BIN" "$MAIN_SCRIPT"
 }
 
@@ -51,6 +126,7 @@ run_main_headless() {
     echo "Virtual environment not found. Run option 1 first."
     return 1
   fi
+  ensure_pigpiod_running || return 1
   "$PYTHON_BIN" "$MAIN_SCRIPT" --headless
 }
 
@@ -67,6 +143,7 @@ run_pigpio_test() {
     echo "Virtual environment not found. Run option 1 first."
     return 1
   fi
+  ensure_pigpiod_running || return 1
   "$PYTHON_BIN" "$TEST_PIGPIO_SCRIPT"
 }
 
@@ -75,6 +152,7 @@ run_servo_test() {
     echo "Virtual environment not found. Run option 1 first."
     return 1
   fi
+  ensure_pigpiod_running || return 1
   "$PYTHON_BIN" "$TEST_SERVO_SCRIPT"
 }
 
@@ -83,6 +161,7 @@ run_sensor_test() {
     echo "Virtual environment not found. Run option 1 first."
     return 1
   fi
+  ensure_pigpiod_running || return 1
   "$PYTHON_BIN" "$TEST_SENSOR_SCRIPT"
 }
 
@@ -91,6 +170,7 @@ run_led_test() {
     echo "Virtual environment not found. Run option 1 first."
     return 1
   fi
+  ensure_pigpiod_running || return 1
   "$PYTHON_BIN" "$TEST_LED_SCRIPT"
 }
 
@@ -99,6 +179,7 @@ run_buzzer_test() {
     echo "Virtual environment not found. Run option 1 first."
     return 1
   fi
+  ensure_pigpiod_running || return 1
   "$PYTHON_BIN" "$TEST_BUZZER_SCRIPT"
 }
 
