@@ -4,11 +4,6 @@ cd /d "%~dp0"
 
 set "MAIN_SCRIPT=main.py"
 set "TEST_CAMERA_SCRIPT=tests\camera.py"
-set "TEST_PIGPIO_SCRIPT=tests\pigpiod.py"
-set "TEST_SERVO_SCRIPT=tests\servo.py"
-set "TEST_SENSOR_SCRIPT=tests\sensor.py"
-set "TEST_LED_SCRIPT=tests\led.py"
-set "TEST_BUZZER_SCRIPT=tests\buzzer.py"
 set "REQ_FILE=requirements\windows.txt"
 
 :menu
@@ -35,23 +30,13 @@ goto menu
 cls
 echo ===== Tests Menu (Windows) =====
 echo 1. Run camera test
-echo 2. Run pigpio connection test
-echo 3. Run servo test
-echo 4. Run ultrasonic sensor test
-echo 5. Run led output test
-echo 6. Run buzzer output test
 echo 0. Back
 echo.
 set /p test_choice=Enter option: 
 
 if "%test_choice%"=="1" goto run_camera_test
-if "%test_choice%"=="2" goto run_pigpio_test
-if "%test_choice%"=="3" goto run_servo_test
-if "%test_choice%"=="4" goto run_sensor_test
-if "%test_choice%"=="5" goto run_led_test
-if "%test_choice%"=="6" goto run_buzzer_test
 if "%test_choice%"=="0" goto menu
-echo Invalid option. Please choose 0 to 6.
+echo Invalid option. Please choose 0 or 1.
 pause
 goto tests_menu
 
@@ -104,56 +89,6 @@ if not exist ".venv\Scripts\python.exe" (
     goto tests_menu
 )
 ".venv\Scripts\python.exe" "%TEST_CAMERA_SCRIPT%"
-pause
-goto tests_menu
-
-:run_pigpio_test
-if not exist ".venv\Scripts\python.exe" (
-    echo Virtual environment not found. Run option 1 first.
-    pause
-    goto tests_menu
-)
-".venv\Scripts\python.exe" "%TEST_PIGPIO_SCRIPT%"
-pause
-goto tests_menu
-
-:run_servo_test
-if not exist ".venv\Scripts\python.exe" (
-    echo Virtual environment not found. Run option 1 first.
-    pause
-    goto tests_menu
-)
-".venv\Scripts\python.exe" "%TEST_SERVO_SCRIPT%"
-pause
-goto tests_menu
-
-:run_sensor_test
-if not exist ".venv\Scripts\python.exe" (
-    echo Virtual environment not found. Run option 1 first.
-    pause
-    goto tests_menu
-)
-".venv\Scripts\python.exe" "%TEST_SENSOR_SCRIPT%"
-pause
-goto tests_menu
-
-:run_led_test
-if not exist ".venv\Scripts\python.exe" (
-    echo Virtual environment not found. Run option 1 first.
-    pause
-    goto tests_menu
-)
-".venv\Scripts\python.exe" "%TEST_LED_SCRIPT%"
-pause
-goto tests_menu
-
-:run_buzzer_test
-if not exist ".venv\Scripts\python.exe" (
-    echo Virtual environment not found. Run option 1 first.
-    pause
-    goto tests_menu
-)
-".venv\Scripts\python.exe" "%TEST_BUZZER_SCRIPT%"
 pause
 goto tests_menu
 
