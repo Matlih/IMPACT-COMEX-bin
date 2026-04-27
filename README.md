@@ -41,7 +41,14 @@ pip install -r requirements/windows.txt
 ```
 
 ### Deployment (Execution):
-* This system utilizes an automated batch orchestrator for seamless deployment. To execute the pipeline, simply run the included batch file.
+* Use the Linux launcher for full edge runtime setup and execution.
+```bash
+chmod +x run.sh
+./run.sh
+```
+
+### Windows Test Launcher (Non-Production)
+* The batch launcher is kept for convenience testing only.
 ```bash
 run.bat
 ```
