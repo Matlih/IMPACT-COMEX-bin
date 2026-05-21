@@ -1,4 +1,4 @@
-# ♻️ Project IMPACT-COMEX: Edge Vision System
+# ♻️ ShellWise Smart Bin (Project IMPACT): Edge Vision System
 
 > **A lightweight YOLOv11n computer vision pipeline engineered for real-time PET bottle classification on localized edge hardware.**
 
@@ -8,7 +8,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## 🏛️ System Architecture
-This repository contains the localized vision pipeline for the IMPACT-COMEX Smart Bin. To ensure real-time physical actuation and minimal power draw, the system utilizes the `YOLOv11n` (Nano) architecture. This allows for high-throughput inference directly on constrained edge devices (Raspberry Pi 4) without requiring continuous cloud compute.
+This repository contains the localized vision pipeline for the ShellWise Smart Bin. To ensure real-time physical actuation and minimal power draw, the system utilizes the `YOLOv11n` (Nano) architecture. This allows for high-throughput inference directly on constrained edge devices (Raspberry Pi 4) without requiring continuous cloud compute.
 
 ### Data Engineering & Provenance
 The model was fine-tuned specifically for the detection of Polyethylene Terephthalate (PET) plastics to facilitate automated recycling sorting.
