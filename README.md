@@ -1,6 +1,9 @@
-# ♻️ ShellWise Smart Bin (Project IMPACT): Edge Vision System
+# ♻️ ShellWise Smart Bin: Edge Vision System
 
 > **A lightweight YOLOv11n computer vision pipeline engineered for real-time PET bottle classification on localized edge hardware.**
+> 
+> 🏆 **1st Place Overall — Project IMPACT (Awarded by REZBIN & NU-D)**
+> 🏛️ **Officially Endorsed for Regional Edge-AI Integration by DOST Calabarzon & DSWD.**
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Framework](https://img.shields.io/badge/framework-YOLOv11n-green.svg)]()
